@@ -3,7 +3,7 @@
 Give Codex the project folder containing `MVP.md`, `AGENTS.md`, and `PHASES.md`, then send **one** prompt at a time.
 
 ## Phase 1 prompt
-Read `MVP.md`, `AGENTS.md`, and `PHASES.md`. Implement Phase 1 only: TypeScript npm-workspaces monorepo; Fastify+Socket.IO+SQLite server; Vite/React frontend; single-port production serving at `0.0.0.0:3000`, health endpoint, minimal participant/host placeholder routes, offline CSS/font assets. Include `README.md`, `.env.example`, `start-localmenti.cmd`, and a LAN smoke-test. Run lint/typecheck/tests/build and document exactly what works. Stop before Phase 2.
+Read `MVP.md`, `AGENTS.md`, and `PHASES.md`. Implement Phase 1 only: TypeScript npm-workspaces monorepo; Fastify+Socket.IO+SQLite server; Vite/React frontend; single-port production serving at `0.0.0.0:3000`, health endpoint, minimal participant/host placeholder routes, offline CSS/font assets. Include `README.md`, `.env.example`, `start-quizharbor.cmd`, and a LAN smoke-test. Run lint/typecheck/tests/build and document exactly what works. Stop before Phase 2.
 
 ## Phase 2 prompt
 Read `MVP.md`, `AGENTS.md`, `PHASES.md`, and current code. Implement Phase 2 only: password-protected host area, persistent CRUD for quizzes and MCQ questions, quiz-wide time and per-question maximum-point settings (speed scoring is mandatory; no mode toggle), quiz JSON import/export, schema validation and tests. No live session functionality yet. Run all checks and report.
@@ -89,4 +89,4 @@ The JSON structure disclosure starts collapsed. Copy AI prompt copies only the q
 
 ## Public product name and attribution
 
-The public product name is QuizHarbor. Existing @localmenti workspace scopes, database filenames and browser storage keys are retained for backwards compatibility. Made by MUZI appears on the PIN/nickname join page, QR waiting lobby and final-result footer only; it is absent from live question and intermediate leaderboard screens. The Windows launcher is start-quizharbor.cmd. README.md is the consolidated installation, configuration and event operations guide.
+The public product name is QuizHarbor. Made by MUZI appears on the PIN/nickname join page, QR waiting lobby and final-result footer only; it is absent from live question and intermediate leaderboard screens. The Windows launcher is start-quizharbor.cmd. README.md is the consolidated installation, configuration and event operations guide.

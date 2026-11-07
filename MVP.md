@@ -116,7 +116,7 @@ For a default **1,000-point, 20-second** question, correct answers receive:
 - **Storage:** SQLite via `better-sqlite3`, migrations, unique submission indexes, transactions and WAL.
 - **Shared contracts:** Zod runtime validation and shared TS types.
 - **Testing:** Vitest unit/integration; a Socket.IO load-test script; Playwright browser tests where practical.
-- **Deployment:** One production Node.js process serving built frontend, API and sockets on one LAN port; `start-localmenti.cmd` helper for Windows.
+- **Deployment:** One production Node.js process serving built frontend, API and sockets on one LAN port; `start-quizharbor.cmd` helper for Windows.
 - No Docker/Kubernetes/Redis requirement for MVP.
 
 ## 8. Security and integrity
@@ -160,7 +160,7 @@ The actionable prompts, tests and stop conditions are in `PHASES.md`; coding rul
 
 ## 12. Suggested project repository layout
 ```
-localmenti/
+quizharbor/
 ├── MVP.md
 ├── AGENTS.md
 ├── PHASES.md
@@ -242,4 +242,4 @@ The JSON structure disclosure starts collapsed. Copy AI prompt copies only the q
 
 ## Public product name and attribution
 
-The public product name is QuizHarbor. Existing @localmenti workspace scopes, database filenames and browser storage keys are retained for backwards compatibility. Made by MUZI appears on the PIN/nickname join page, QR waiting lobby and final-result footer only; it is absent from live question and intermediate leaderboard screens. The Windows launcher is start-quizharbor.cmd. README.md is the consolidated installation, configuration and event operations guide.
+The public product name is QuizHarbor. Made by MUZI appears on the PIN/nickname join page, QR waiting lobby and final-result footer only; it is absent from live question and intermediate leaderboard screens. The Windows launcher is start-quizharbor.cmd. README.md is the consolidated installation, configuration and event operations guide.

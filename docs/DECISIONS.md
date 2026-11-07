@@ -74,7 +74,7 @@
 
 - Recent finished sessions lazily load their saved final standings through the existing authenticated session endpoint; no extra copy of scores or schema migration is needed. Ranking derives from persisted published submissions and session snapshots, so quiz deletion does not remove results. A regression test verifies exact final rankings after quiz deletion/restart and denies anonymous access. The library Duplicate action was removed as requested.
 
-- The provided Mentimeter reference images informed only the large-choice-card and count-above-bar interaction patterns. LocalMenti keeps original paper/lime typography, palette, layouts and local CSS; reference images are ignored development files and are not shipped as assets. The server-supplied reveal gates every distribution and correctness popup. The existing persisted options-release timestamp remains the answer/scoring start, so the visual redesign does not alter deadlines, speed scoring or request authority. Polls never receive correctness feedback; missing submissions receive a neutral notice. Native dialog feedback is keyboard-dismissible and reduced-motion styles disable entry/bar animation. Points and rankings retain their separate host publication gate.
+- The provided Mentimeter reference images informed only the large-choice-card and count-above-bar interaction patterns. QuizHarbor keeps original paper/lime typography, palette, layouts and local CSS; reference images are ignored development files and are not shipped as assets. The server-supplied reveal gates every distribution and correctness popup. The existing persisted options-release timestamp remains the answer/scoring start, so the visual redesign does not alter deadlines, speed scoring or request authority. Polls never receive correctness feedback; missing submissions receive a neutral notice. Native dialog feedback is keyboard-dismissible and reduced-motion styles disable entry/bar animation. Points and rankings retain their separate host publication gate.
 
 - Quiz-wide timing replaces per-question authoring duration. Migration 8 stores quizzes.duration_seconds, chooses the first saved question duration (or 20), and normalizes authoring rows. Runtime session snapshots remain untouched, preserving existing deadlines and scoring. New sessions use the one quiz duration for every scored question and poll. JSON v2 makes the global field explicit; legacy v1 imports convert deterministically using the first question and strip old overrides. No scoring-mode change or new dependency.
 
@@ -121,7 +121,7 @@ The JSON structure disclosure starts collapsed. Copy AI prompt copies only the q
 
 ## Public product name and attribution
 
-The public product name is QuizHarbor. Existing @localmenti workspace scopes, database filenames and browser storage keys are retained for backwards compatibility. Made by MUZI appears on the PIN/nickname join page, QR waiting lobby and final-result footer only; it is absent from live question and intermediate leaderboard screens. The Windows launcher is start-quizharbor.cmd. README.md is the consolidated installation, configuration and event operations guide.
+The public product name is QuizHarbor. Made by MUZI appears on the PIN/nickname join page, QR waiting lobby and final-result footer only; it is absent from live question and intermediate leaderboard screens. The Windows launcher is start-quizharbor.cmd. README.md is the consolidated installation, configuration and event operations guide.
 
 ## QuizHarbor hackathon presentation
 

@@ -106,7 +106,7 @@ Simulate 50 then 100 then 200 connected clients; measure latency and memory; rec
 
 ## Windows operator quickstart (target end state)
 - One-time with internet: `npm install` then `npm run build`.
-- Event day with no internet: `npm run start` (built server and static client) or included `start-localmenti.cmd`.
+- Event day with no internet: `npm run start` (built server and static client) or included `start-quizharbor.cmd`.
 - In another terminal: `ipconfig` to find LAN IPv4 (examples only: `192.168.50.10`).
 - Participants open `http://<HOST_LAN_IP>:3000` while on same Wi-Fi and enter session PIN; QR code points to this exact URL.
 - Windows Defender Firewall allows **inbound TCP 3000 only on the Private network profile**, approved by operator. Never automatically disable firewall globally.
@@ -181,4 +181,4 @@ The JSON structure disclosure starts collapsed. Copy AI prompt copies only the q
 
 ## Public product name and attribution
 
-The public product name is QuizHarbor. Existing @localmenti workspace scopes, database filenames and browser storage keys are retained for backwards compatibility. Made by MUZI appears on the PIN/nickname join page, QR waiting lobby and final-result footer only; it is absent from live question and intermediate leaderboard screens. The Windows launcher is start-quizharbor.cmd. README.md is the consolidated installation, configuration and event operations guide.
+The public product name is QuizHarbor. Made by MUZI appears on the PIN/nickname join page, QR waiting lobby and final-result footer only; it is absent from live question and intermediate leaderboard screens. The Windows launcher is start-quizharbor.cmd. README.md is the consolidated installation, configuration and event operations guide.
