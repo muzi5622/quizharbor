@@ -70,7 +70,7 @@ The renamed installer has not been built or tested on Windows as part of this up
 
 The easiest way to host. No Node.js or terminal needed.
 
-1. Obtain **`QuizHarbor-Setup-<version>.exe`** from the organizer (or the repository’s Releases page when published), or [build it yourself](#building-the-desktop-installer).
+1. Obtain **`QuizHarbor-Setup-<version>.exe`** from the  Releases page when published  or click [**Dowload QuizHarbor-Setup-0.2.0.exe **](https://github.com/muzi5622/quizharbor/releases/download/v0.2.0/QuizHarbor-Setup-0.2.0.exe), or [build it yourself](#building-the-desktop-installer).
 2. Run it and choose where to install. It adds desktop and Start menu shortcuts.
    - Windows may show **"Windows protected your PC"** because the installer is not code-signed. Choose **More info → Run anyway**.
 3. On first launch, **create your host password** (at least 12 characters). This only works on the host laptop itself; players on Wi-Fi can't set it.
