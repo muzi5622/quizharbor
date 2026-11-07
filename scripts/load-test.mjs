@@ -23,7 +23,7 @@ function message(child, predicate) {
 }
 async function run(count) {
   console.log(`Testing ${count} simultaneous participants with production validation and rate limits...`);
-  const directory = mkdtempSync(resolve(tmpdir(),'localmenti-load-'));
+  const directory = mkdtempSync(resolve(tmpdir(),'quizharbor-load-'));
   const databasePath = resolve(directory,'load.sqlite');
   const sockets = []; let child;
   try {
@@ -85,7 +85,7 @@ async function run(count) {
     sockets.forEach(socket => socket.disconnect());
     if(child && child.exitCode === null) { await new Promise(done => { const timer = setTimeout(() => { child.kill(); done(); },3000); child.once('exit',() => { clearTimeout(timer); done(); }); }); }
     const target = resolve(directory); const boundary = resolve(tmpdir())+sep;
-    assert.ok(target.startsWith(boundary) && target.includes('localmenti-load-'));
+    assert.ok(target.startsWith(boundary) && target.includes('quizharbor-load-'));
     rmSync(target,{ recursive: true, force: true });
   }
 }
