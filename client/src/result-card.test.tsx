@@ -2,7 +2,7 @@
 import { act, createElement } from 'react';
 import { createRoot } from 'react-dom/client';
 import { expect, it, vi } from 'vitest';
-import type { ParticipantLobby } from '@localmenti/shared';
+import type { ParticipantLobby } from '@quizharbor/shared';
 import { PodiumCardButton, podiumCardModel, ResultCardButton, resultCardModel } from './result-card.js';
 
 const lobby = (rank: number | null, joinedCount = 19, eventName = 'Friday Science Night'): ParticipantLobby => ({

@@ -2,7 +2,7 @@ import { resumeAfterRestart } from './reconnect.js';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { io, type Socket } from 'socket.io-client';
-import type { ActionResult, ClientToServerEvents, HostLobby, PublicLobby, ServerToClientEvents, TransitionSchema } from '@localmenti/shared';
+import type { ActionResult, ClientToServerEvents, HostLobby, PublicLobby, ServerToClientEvents, TransitionSchema } from '@quizharbor/shared';
 import type { z } from 'zod';
 import { LobbyConnection } from './lobby.js';
 import { HostQuestionControls } from './game.js';

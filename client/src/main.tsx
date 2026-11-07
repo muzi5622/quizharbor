@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Link, Route, Routes, useLocation } from 'react-router-dom';
 import { io, type Socket } from 'socket.io-client';
-import { ConnectionSchema, HealthSchema, type ActionResult, type ClientToServerEvents, type ServerToClientEvents } from '@localmenti/shared';
+import { ConnectionSchema, HealthSchema, type ActionResult, type ClientToServerEvents, type ServerToClientEvents } from '@quizharbor/shared';
 import './style.css';
 import { HostArea } from './host.js';
 import { JoinPage, ParticipantPage, PresenterPage } from './lobby.js';

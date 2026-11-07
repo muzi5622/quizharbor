@@ -1,5 +1,5 @@
 import { expect, it, vi } from 'vitest';
-import type { HostLobby } from '@localmenti/shared';
+import type { HostLobby } from '@quizharbor/shared';
 import { advanceHost } from './host-transition.js';
 
 const answering = { id:'session',revision:4,state:'QUESTION_OPEN',question:{ phase:'ANSWERING',closed:false } } as HostLobby;

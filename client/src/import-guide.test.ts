@@ -1,7 +1,7 @@
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { expect, it } from 'vitest';
-import { QuizFileSchema } from '@localmenti/shared';
+import { QuizFileSchema } from '@quizharbor/shared';
 import { ImportGuide, importExample, quizPrompt } from './import-guide.js';
 
 it('provides a complete example accepted by the real import contract', () => {

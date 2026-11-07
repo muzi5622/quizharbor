@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
 import type { Socket } from 'socket.io-client';
-import type { ActionResult, ClientToServerEvents, LiveQuestion, PublicLobby, ServerToClientEvents, SubmissionReceipt, TransitionSchema } from '@localmenti/shared';
+import type { ActionResult, ClientToServerEvents, LiveQuestion, PublicLobby, ServerToClientEvents, SubmissionReceipt, TransitionSchema } from '@quizharbor/shared';
 import type { z } from 'zod';
 import './game.css';
 import { Standings } from './players.js';
@@ -31,7 +31,7 @@ export function AnswerDistribution({ question }: { question: LiveQuestion }) {
 export function AnswerFeedback({ question, submission }: { question: LiveQuestion; submission: SubmissionReceipt | null }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const [dismissed,setDismissed] = useState(false);
-  const key = `localmenti:feedback:${question.id}`;
+  const key = `quizharbor:feedback:${question.id}`;
   const revealed = question.type === 'quiz_mcq' && question.reveal !== null;
   useEffect(() => {
     if (!revealed) return;

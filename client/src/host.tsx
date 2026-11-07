@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { Link, Navigate, Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { MAX_IMPORT_BYTES, MIN_ANSWER_SECONDS, QuizDraftSchema, type HostLobby, type NetworkAddress, type Question, type Quiz, type QuizDraft, type QuizSummary } from '@localmenti/shared';
+import { MAX_IMPORT_BYTES, MIN_ANSWER_SECONDS, QuizDraftSchema, type HostLobby, type NetworkAddress, type Question, type Quiz, type QuizDraft, type QuizSummary } from '@quizharbor/shared';
 import './host.css';
 import { ImportGuide } from './import-guide.js';
 import { PodiumCardButton } from './result-card.js';
@@ -132,8 +132,8 @@ function CompletedSessions() {
   useEffect(() => {
     let active = true;
     const refresh = () => { api<typeof sessions>('/sessions/history').then(data => { if (active) { setSessions(data); setError(''); } }).catch(error => { if (active) setError(message(error)); }); };
-    refresh(); window.addEventListener('focus',refresh); window.addEventListener('localmenti:sessions-changed',refresh);
-    return () => { active = false; window.removeEventListener('focus',refresh); window.removeEventListener('localmenti:sessions-changed',refresh); };
+    refresh(); window.addEventListener('focus',refresh); window.addEventListener('quizharbor:sessions-changed',refresh);
+    return () => { active = false; window.removeEventListener('focus',refresh); window.removeEventListener('quizharbor:sessions-changed',refresh); };
   },[]);
   if (error) return <p className="error" role="alert">Recent sessions: {error}</p>;
   if (!sessions.length) return null;
@@ -160,7 +160,7 @@ function SessionLaunch({ quizzes }: { quizzes: QuizSummary[] }) {
   const [quizId, setQuizId] = useState('');
   const [address, setAddress] = useState('');
   const [previewSeconds, setPreviewSeconds] = useState(3);
-  const [eventName, setEventName] = useState(() => { try { return localStorage.getItem('localmenti:event-name') ?? ''; } catch { return ''; } });
+  const [eventName, setEventName] = useState(() => { try { return localStorage.getItem('quizharbor:event-name') ?? ''; } catch { return ''; } });
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   useEffect(() => {
@@ -186,12 +186,12 @@ function SessionLaunch({ quizzes }: { quizzes: QuizSummary[] }) {
   async function stop() {
     if (!active || busy || !window.confirm('Stop this session? Final results will be saved and the session cannot be reopened.')) return;
     setBusy(true); setError('');
-    try { await api(`/sessions/${active.id}/end`,'POST',{}); setActive(null); window.dispatchEvent(new Event('localmenti:sessions-changed')); }
+    try { await api(`/sessions/${active.id}/end`,'POST',{}); setActive(null); window.dispatchEvent(new Event('quizharbor:sessions-changed')); }
     catch (error) { setError(message(error)); } finally { setBusy(false); }
   }
   if (active) return <><div className="active-lobby"><div><strong>Your session is ready.</strong><p>{active.title} / PIN {active.pin}</p></div><div className="toolbar"><Link className="button" to={`/present/${active.pin}`}>Open session / Return to lobby</Link><button className="danger" disabled={busy} onClick={() => void stop()}>Stop session</button></div></div>{error && <p className="error" role="alert">{error}</p>}</>;
 
-  return <section className="session-launch" aria-label="Open a live lobby"><h2>Bring the room together.</h2><p className="hint">Start session creates the QR/PIN lobby here without changing pages. Open session when ready. Choose a saved quiz and the IPv4 adapter on the audience’s LAN. The session uses a fixed copy of the saved questions.</p>{error && <p role="alert" className="error">{error}</p>}<label className="event-name-field"><span>Event name <span className="muted">(optional)</span></span><input maxLength={80} value={eventName} placeholder="e.g. Friday Science Night – Room 4" onChange={event => { setEventName(event.target.value); try { localStorage.setItem('localmenti:event-name', event.target.value); } catch { /* Remembering is optional. */ } }}/><span className="hint">Shown on the waiting screen and on every player’s result card.</span></label><div className="toolbar"><label>Quiz<select value={quizId} onChange={event => setQuizId(event.target.value)}><option value="">Choose a quiz</option>{quizzes.filter(quiz => quiz.questionCount > 0).map(quiz => <option key={quiz.id} value={quiz.id}>{quiz.title}</option>)}</select></label><label>Participant LAN address<select value={address} onChange={event => setAddress(event.target.value)}><option value="">Choose the audience’s adapter</option>{addresses.map(value => <option key={value.address} value={value.address}>{value.label} · {value.address}</option>)}</select></label><label>Read question first<select value={previewSeconds} onChange={event => setPreviewSeconds(Number(event.target.value))}>{[3,4,5].map(seconds => <option key={seconds} value={seconds}>{seconds} seconds</option>)}</select></label><button className="button" disabled={busy || !quizId || !address || active === undefined} onClick={() => void open()}>{busy ? 'Opening…' : 'Start session ↗'}</button></div>{active !== undefined && addresses.length === 0 && <p className="hint">Connect this laptop to a LAN, then reload to find its IPv4 address.</p>}</section>;
+  return <section className="session-launch" aria-label="Open a live lobby"><h2>Bring the room together.</h2><p className="hint">Start session creates the QR/PIN lobby here without changing pages. Open session when ready. Choose a saved quiz and the IPv4 adapter on the audience’s LAN. The session uses a fixed copy of the saved questions.</p>{error && <p role="alert" className="error">{error}</p>}<label className="event-name-field"><span>Event name <span className="muted">(optional)</span></span><input maxLength={80} value={eventName} placeholder="e.g. Friday Science Night – Room 4" onChange={event => { setEventName(event.target.value); try { localStorage.setItem('quizharbor:event-name', event.target.value); } catch { /* Remembering is optional. */ } }}/><span className="hint">Shown on the waiting screen and on every player’s result card.</span></label><div className="toolbar"><label>Quiz<select value={quizId} onChange={event => setQuizId(event.target.value)}><option value="">Choose a quiz</option>{quizzes.filter(quiz => quiz.questionCount > 0).map(quiz => <option key={quiz.id} value={quiz.id}>{quiz.title}</option>)}</select></label><label>Participant LAN address<select value={address} onChange={event => setAddress(event.target.value)}><option value="">Choose the audience’s adapter</option>{addresses.map(value => <option key={value.address} value={value.address}>{value.label} · {value.address}</option>)}</select></label><label>Read question first<select value={previewSeconds} onChange={event => setPreviewSeconds(Number(event.target.value))}>{[3,4,5].map(seconds => <option key={seconds} value={seconds}>{seconds} seconds</option>)}</select></label><button className="button" disabled={busy || !quizId || !address || active === undefined} onClick={() => void open()}>{busy ? 'Opening…' : 'Start session ↗'}</button></div>{active !== undefined && addresses.length === 0 && <p className="hint">Connect this laptop to a LAN, then reload to find its IPv4 address.</p>}</section>;
 }
 function EditorRoute() {
   const { id } = useParams();
@@ -274,7 +274,7 @@ function Editor({ id }: { id: string }) {
     try {
       const file = await api(`/quizzes/${id}/export`);
       const url = URL.createObjectURL(new Blob([JSON.stringify(file)], { type: 'application/json' }));
-      const anchor = document.createElement('a'); anchor.href = url; anchor.download = `localmenti-${id}.json`; anchor.click(); window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+      const anchor = document.createElement('a'); anchor.href = url; anchor.download = `quizharbor-${id}.json`; anchor.click(); window.setTimeout(() => URL.revokeObjectURL(url), 1000);
     } catch (error) { setError(message(error)); }
   }
   if (loadError) return <p className="error" role="alert">{loadError} <Link to="/host">Return to library</Link></p>;

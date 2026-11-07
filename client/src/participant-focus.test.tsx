@@ -3,7 +3,7 @@ import { act, createElement } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
-import type { ParticipantLobby } from '@localmenti/shared';
+import type { ParticipantLobby } from '@quizharbor/shared';
 import { JoinPage, ParticipantPage } from './lobby.js';
 
 const channel = vi.hoisted(() => ({ payload:null as ParticipantLobby | null,update:null as ((data:ParticipantLobby) => void) | null,answer:null as unknown }));
@@ -20,7 +20,7 @@ vi.mock('socket.io-client',() => ({ io:() => {
 let container:HTMLDivElement; let root:Root;
 beforeEach(() => {
   vi.stubGlobal('IS_REACT_ACT_ENVIRONMENT',true); localStorage.clear(); sessionStorage.clear();
-  localStorage.setItem('localmenti:participant:123456','a'.repeat(64));
+  localStorage.setItem('quizharbor:participant:123456','a'.repeat(64));
   const now = Date.now(); channel.answer = null;
   channel.payload = { participant:{ id:'me',nickname:'MyName',avatarIndex:0,rank:null,score:0 },submission:null,history:[],session:{ id:'session',pin:'123456',state:'QUESTION_OPEN',title:'Quiz',questionCount:1,joinedCount:20,connectedCount:20,answeredCount:5,revision:1,eventName:'',standingsRevision:0,serverTime:now,lanAddress:'127.0.0.1',joinUrl:'/s/123456',previewSeconds:3,players:[],leaderboard:[],podium:[],question:{ id:'question',index:0,type:'quiz_mcq',text:'Pick the correct choice.',options:Array.from({ length:6 },(_,index) => ({ id:String.fromCharCode(97+index),text:`Choice ${index+1}` })),durationSeconds:20,basePoints:1000,previewStartedAt:now-4000,startedAt:now-1000,endsAt:now+19000,phase:'ANSWERING',closed:false,reveal:null } } };
   container = document.createElement('div'); document.body.append(container); root = createRoot(container);
@@ -67,6 +67,6 @@ it('lets a QR-link visitor change the pre-filled PIN and joins that room instead
   // happy-dom cannot evaluate the nickname's Unicode pattern, so submit directly.
   await act(async () => { container.querySelector<HTMLFormElement>('form.join-card')!.dispatchEvent(new Event('submit',{ bubbles:true,cancelable:true })); });
   expect(requests).toEqual([{ pin:'654321',nickname:'Sam' }]);
-  expect(localStorage.getItem('localmenti:participant:654321')).toBe('b'.repeat(64));
-  expect(localStorage.getItem('localmenti:participant:123456')).toBeNull();
+  expect(localStorage.getItem('quizharbor:participant:654321')).toBe('b'.repeat(64));
+  expect(localStorage.getItem('quizharbor:participant:123456')).toBeNull();
 });

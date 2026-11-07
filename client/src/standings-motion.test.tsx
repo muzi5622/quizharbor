@@ -2,7 +2,7 @@
 import { act, createElement } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
-import { RESERVED_AVATAR_INDEX, type PublicLobby } from '@localmenti/shared';
+import { RESERVED_AVATAR_INDEX, type PublicLobby } from '@quizharbor/shared';
 import { Standings } from './players.js';
 
 let root:Root; let container:HTMLDivElement; let tick:FrameRequestCallback; let begin:number;
@@ -38,7 +38,7 @@ it('grows points and graph before moving players, then avoids replay on refresh'
 });
 it('restarts an interrupted reveal and supports replay after completion',async () => {
   await mount(); await advance(1400);
-  expect(sessionStorage.getItem('localmenti:standings:motion')).toBeNull();
+  expect(sessionStorage.getItem('quizharbor:standings:motion')).toBeNull();
   await act(async () => root.render(null)); await mount();
   expect(container.querySelector('.standings-counting')).not.toBeNull();
   await advance(3700);
@@ -56,7 +56,7 @@ it('still animates when the OS reports reduced motion and hides all standings be
 });
 it('shows ten places per page and pages through the rest of the ranking',async () => {
   session={ ...session,leaderboard:Array.from({ length:25 },(_,index) => ({ id:`p${index}`,nickname:`Player${index}`,avatarIndex:index,rank:index+1,score:2500-index*10,correctAnswers:1,responseMs:1000,previousScore:2500-index*10,previousRank:index+1,previousPosition:index })) };
-  sessionStorage.setItem('localmenti:standings:motion','2'); await mount();
+  sessionStorage.setItem('quizharbor:standings:motion','2'); await mount();
   const ranks = () => [...container.querySelectorAll('.visible-rank')].map(rank => rank.textContent);
   expect(ranks()).toHaveLength(10); expect(ranks()[0]).toBe('1');
   expect(container.querySelector('.rank-pager')!.textContent).toContain('Places 1–10 of 25');
@@ -69,7 +69,7 @@ it('shows ten places per page and pages through the rest of the ranking',async (
 it('reveals third, second, then the winner when the quiz finishes, once per session',async () => {
   vi.useFakeTimers();
   try {
-    sessionStorage.setItem('localmenti:standings:motion','2');
+    sessionStorage.setItem('quizharbor:standings:motion','2');
     session={ ...session,state:'FINISHED',podium:session.leaderboard };
     await mount();
     const stage = () => container.querySelector('.winners-stage');

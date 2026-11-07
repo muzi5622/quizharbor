@@ -1,4 +1,4 @@
-import type { ActionResult, HostLobby, TransitionSchema } from '@localmenti/shared';
+import type { ActionResult, HostLobby, TransitionSchema } from '@quizharbor/shared';
 import type { z } from 'zod';
 
 type Action = z.infer<typeof TransitionSchema>['action'];

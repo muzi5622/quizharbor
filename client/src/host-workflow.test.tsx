@@ -3,7 +3,7 @@ import { act, createElement } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { MemoryRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
-import { QuizFileSchema, type Quiz, type HostLobby } from '@localmenti/shared';
+import { QuizFileSchema, type Quiz, type HostLobby } from '@quizharbor/shared';
 import { HostArea } from './host.js';
 import { importExample } from './import-guide.js';
 import { PresenterPage } from './lobby.js';

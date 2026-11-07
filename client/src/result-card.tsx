@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { avatarFor, RESERVED_AVATAR_INDEX, type ParticipantLobby, type PublicLobby } from '@localmenti/shared';
+import { avatarFor, RESERVED_AVATAR_INDEX, type ParticipantLobby, type PublicLobby } from '@quizharbor/shared';
 import './result-card.css';
 
 const WIDTH = 1080;

@@ -1,7 +1,7 @@
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { expect, it } from 'vitest';
-import type { PublicLobby } from '@localmenti/shared';
+import type { PublicLobby } from '@quizharbor/shared';
 import { AnswerDistribution, AnswerFeedback, HostQuestionControls, ParticipantQuestion, QuestionView } from './game.js';
 import { Standings, WelcomeLobby } from './players.js';
 import { PersonalStanding } from './lobby.js';

@@ -2,7 +2,7 @@ import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
-import { AVATAR_VARIANTS, RESERVED_AVATAR_INDEX, NicknameSchema, avatarFor } from '@localmenti/shared';
+import { AVATAR_VARIANTS, RESERVED_AVATAR_INDEX, NicknameSchema, avatarFor } from '@quizharbor/shared';
 import { Avatar } from './players.js';
 import { JoinPage } from './lobby.js';
 

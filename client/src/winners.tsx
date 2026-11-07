@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { type RankEntry } from '@localmenti/shared';
+import { type RankEntry } from '@quizharbor/shared';
 import { Avatar } from './players.js';
 import './winners.css';
 
@@ -16,7 +16,7 @@ export function ordinal(rank: number) {
 
 /** Full-screen podium shown once when the quiz finishes. */
 export function WinnersReveal({ sessionId, podium, replay }: { sessionId: string; podium: RankEntry[]; replay: number }) {
-  const key = `localmenti:winners:${sessionId}`;
+  const key = `quizharbor:winners:${sessionId}`;
   const [open, setOpen] = useState(() => {
     try { return sessionStorage.getItem(key) === null; } catch { return true; }
   });

@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest';
-import { MAX_IMPORT_BYTES } from '@localmenti/shared';
+import { MAX_IMPORT_BYTES } from '@quizharbor/shared';
 import { importExample } from './import-guide.js';
 import { parseQuizImport } from './import-json.js';
 

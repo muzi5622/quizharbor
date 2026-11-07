@@ -2,7 +2,7 @@ import { resumeAfterRestart } from './reconnect.js';
 import { useEffect, useState, type FormEvent } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { io, type Socket } from 'socket.io-client';
-import { JoinSchema, NicknameInputSchema, type ClientToServerEvents, type ParticipantLobby, type PublicLobby, type ServerToClientEvents } from '@localmenti/shared';
+import { JoinSchema, NicknameInputSchema, type ClientToServerEvents, type ParticipantLobby, type PublicLobby, type ServerToClientEvents } from '@quizharbor/shared';
 import { ParticipantQuestion, QuestionView } from './game.js';
 import { Avatar, MadeBy, Standings, WelcomeLobby } from './players.js';
 import { PodiumMedal } from './winners.js';
@@ -14,7 +14,7 @@ import './menti-board.css';
 import { HostSession } from './session-host.js';
 import { OpenInBrowser } from './desktop.js';
 
-const tokenKey = (pin: string) => `localmenti:participant:${pin}`;
+const tokenKey = (pin: string) => `quizharbor:participant:${pin}`;
 function readToken(pin: string) { try { const token = localStorage.getItem(tokenKey(pin)); return token && /^[a-f0-9]{64}$/.test(token) ? token : null; } catch { return null; } }
 export function ScoringRules() {
   return <aside className="scoring-note"><strong>Correctness + speed. Every time.</strong><p>Correct answers earn 50–100% of the maximum points according to when the server receives your answer. Incorrect, missing and late answers earn 0. For a 1,000-point, 20-second question: 1,000 at the start, 750 at 10 seconds, 500 exactly at the deadline if accepted. Wireless congestion can affect timing.</p></aside>;
@@ -28,7 +28,7 @@ function JoinForm({ presetPin = '', onJoin }: { presetPin?: string; onJoin?: (to
   const [busy, setBusy] = useState(false);
   const resuming = /^\d{6}$/.test(pin) && Boolean(readToken(pin));
   const nicknameInvalid = !resuming && nickname.length > 0 && !NicknameInputSchema.safeParse(nickname).success;
-  const [recent] = useState(() => { try { const pin = localStorage.getItem('localmenti:last-pin'); return pin && /^\d{6}$/.test(pin) && readToken(pin) ? pin : null; } catch { return null; } });
+  const [recent] = useState(() => { try { const pin = localStorage.getItem('quizharbor:last-pin'); return pin && /^\d{6}$/.test(pin) && readToken(pin) ? pin : null; } catch { return null; } });
   const navigate = useNavigate();
   async function submit(event: FormEvent) {
     event.preventDefault(); setError('');
@@ -42,11 +42,11 @@ function JoinForm({ presetPin = '', onJoin }: { presetPin?: string; onJoin?: (to
     setBusy(true);
     try {
       // Check storage before allocating an identity that could not be recovered.
-      localStorage.setItem('localmenti:storage-check', '1'); localStorage.removeItem('localmenti:storage-check');
+      localStorage.setItem('quizharbor:storage-check', '1'); localStorage.removeItem('quizharbor:storage-check');
       const response = await fetch('/api/join', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(parsed.data) });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error ?? 'Unable to join.');
-      localStorage.setItem(tokenKey(pin), result.token); localStorage.setItem('localmenti:last-pin', pin);
+      localStorage.setItem(tokenKey(pin), result.token); localStorage.setItem('quizharbor:last-pin', pin);
       enter(result.token);
     } catch (error) { setError(error instanceof DOMException ? 'Enable browser storage to join and keep your identity after reconnecting.' : error instanceof Error ? error.message : 'Unable to reach the server. Try again.'); }
     finally { setBusy(false); }

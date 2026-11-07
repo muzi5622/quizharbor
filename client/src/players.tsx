@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { avatarFor, RESERVED_AVATAR_INDEX, type LobbyPlayer, type PublicLobby, type RankEntry } from '@localmenti/shared';
+import { avatarFor, RESERVED_AVATAR_INDEX, type LobbyPlayer, type PublicLobby, type RankEntry } from '@quizharbor/shared';
 import './players.css';
 import { WinnersReveal } from './winners.js';
 import { PodiumCardButton } from './result-card.js';
@@ -62,7 +62,7 @@ function StandingsReveal({ session }: { session: PublicLobby }) {
   },[ordered]);
   useEffect(() => {
     animateRanks.current = false;
-    const key = `localmenti:standings:${session.id}`;
+    const key = `quizharbor:standings:${session.id}`;
     let seen = false;
     const remember = () => { try { sessionStorage.setItem(key,String(session.standingsRevision)); } catch { /* Storage is optional. */ } };
     try { seen = sessionStorage.getItem(key) === String(session.standingsRevision); } catch { /* Animation works without storage. */ }

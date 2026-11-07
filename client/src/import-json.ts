@@ -1,4 +1,4 @@
-import { MAX_IMPORT_BYTES, QuizFileSchema } from '@localmenti/shared';
+import { MAX_IMPORT_BYTES, QuizFileSchema } from '@quizharbor/shared';
 
 /** Both pasted text and uploaded files follow the same import contract. */
 export function parseQuizImport(text: string) {
