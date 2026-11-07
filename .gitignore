@@ -1,0 +1,10 @@
+node_modules/
+dist/
+data/
+.env
+*.log
+test-results/
+
+.reference/
+desktop/app/
+desktop/release/
