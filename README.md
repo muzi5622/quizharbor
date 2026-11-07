@@ -123,6 +123,45 @@ Don't disable the firewall globally, and don't expose QuizHarbor to the internet
 
 **Capacity:** a session allows up to 200 players. Real capacity depends on your Wi-Fi access point; for big rooms, use a proper access point (not a phone hotspot) and Ethernet between the laptop and router.
 
+### Stay connected on a network with no internet
+
+Windows treats a Wi-Fi without internet as a bad connection and may drop it, switch to another saved network or let the adapter sleep. Players then lose the host. Before the event:
+
+1. **Use Ethernet if you can.** A cable from the laptop to the router is the most reliable setup; phones still join over the router's Wi-Fi.
+2. **Stop switching to other networks** (PowerShell as administrator):
+
+   ```powershell
+   netsh wlan show profiles                                                  # list saved Wi-Fi names
+   netsh wlan set profileparameter name="EVENT-WIFI" connectionmode=auto
+   netsh wlan set profileparameter name="Home-WiFi" connectionmode=manual    # repeat for every other saved Wi-Fi or hotspot
+   Set-NetConnectionProfile -InterfaceAlias "Wi-Fi" -NetworkCategory Private
+   ```
+
+   Turn off your own phone's hotspot during the event.
+3. **Stop Windows dropping "No internet" networks** (as administrator, then restart):
+
+   ```powershell
+   reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\GroupPolicy" /v fMinimizeConnections /t REG_DWORD /d 0 /f
+   reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\GroupPolicy" /v fSoftDisconnectConnections /t REG_DWORD /d 0 /f
+   ```
+
+   If it still drops, also turn off the internet check. Use this on event days only, because it can break hotel and café login pages:
+
+   ```powershell
+   reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v EnableActiveProbing /t REG_DWORD /d 0 /f
+   ```
+
+4. **Stop the Wi-Fi and the laptop from sleeping.** In Device Manager → Network adapters → your Wi-Fi adapter → Power Management, untick "Allow the computer to turn off this device to save power". Keep the charger plugged in and run `powercfg /change standby-timeout-ac 0`.
+5. **Keep the same IP address.** If the laptop reconnects with a new IP, the QR code and join link stop working. Give the laptop a DHCP reservation (fixed IP) in the router settings.
+
+**After the event**, undo steps 3 and 4 (as administrator), then set your other Wi-Fi networks back to `connectionmode=auto`:
+
+```powershell
+reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\GroupPolicy" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v EnableActiveProbing /t REG_DWORD /d 1 /f
+powercfg /change standby-timeout-ac 30
+```
+
 ## 4. Create or import a quiz
 
 In the host space, choose **＋ Create quiz**:
