@@ -34,7 +34,7 @@ An organizer can run QuizHarbor on a LAN with no internet gateway, reducing acce
 
 The project includes Windows x64 installer configuration for **`QuizHarbor-Setup-<version>.exe`**, desktop/Start menu shortcuts, an embedded local server and first-run host-password setup. Once a built installer is supplied, organizers simply install the app, launch it, connect everyone to the same Wi-Fi and host a quiz. Players only need a browser.
 
-The renamed installer has not been built or tested on Windows as part of this update. See [the build instructions](#building-the-desktop-installer) to produce it; release availability depends on the repository maintainer publishing the artifact.
+Download the latest installer from the [Releases page](https://github.com/muzi5622/quizharbor/releases), or [build it yourself](#building-the-desktop-installer).
 
 ## Highlights
 
@@ -70,7 +70,7 @@ The renamed installer has not been built or tested on Windows as part of this up
 
 The easiest way to host. No Node.js or terminal needed.
 
-1. Obtain **`QuizHarbor-Setup-<version>.exe`** from the  Releases page when published  or click [**Dowload QuizHarbor-Setup-0.2.0.exe **](https://github.com/muzi5622/quizharbor/releases/download/v0.2.0/QuizHarbor-Setup-0.2.0.exe), or [build it yourself](#building-the-desktop-installer).
+1. [**Download the latest `QuizHarbor-Setup-<version>.exe`**](https://github.com/muzi5622/quizharbor/releases/latest) from the Releases page, or [build it yourself](#building-the-desktop-installer).
 2. Run it and choose where to install. It adds desktop and Start menu shortcuts.
    - Windows may show **"Windows protected your PC"** because the installer is not code-signed. Choose **More info → Run anyway**.
 3. On first launch, **create your host password** (at least 12 characters). This only works on the host laptop itself; players on Wi-Fi can't set it.
@@ -90,7 +90,7 @@ The easiest way to host. No Node.js or terminal needed.
 
 The app uses port **3000**, or the next free port up to 3009. If you quit while a quiz is live, it asks first, because players would be disconnected.
 
-> **Moving from the source version?** Before the app's first launch, copy `data\localmenti.sqlite` into `%APPDATA%\QuizHarbor\data\` to keep your quizzes, password and history. Copy any settings from your `.env` into `%APPDATA%\QuizHarbor\.env`.
+> **Moving from the source version?** Before the app's first launch, copy `data\quizharbor.sqlite` into `%APPDATA%\QuizHarbor\data\` to keep your quizzes, password and history. Copy any settings from your `.env` into `%APPDATA%\QuizHarbor\.env`.
 
 ## 2. Run from source (Node.js)
 
@@ -291,10 +291,8 @@ Never publish `.env`, the database or backups.
 **Reset finished-session data** clears all finished events (players, answers and results) after making a backup in `data/backups`. Quizzes, the host password and any live session are kept. Export what you need first.
 
 **Database location:**
-- Source version: `data/localmenti.sqlite`
-- Desktop app: `%APPDATA%\QuizHarbor\data\localmenti.sqlite`
-
-The internal name "localmenti" is kept for compatibility.
+- Source version: `data/quizharbor.sqlite`
+- Desktop app: `%APPDATA%\QuizHarbor\data\quizharbor.sqlite`
 
 **Backups:** stop QuizHarbor, then copy the **whole data folder**, including any `-wal`/`-shm` files. Don't copy the database while the app is running. To restore, stop QuizHarbor and put the backed-up folder back. Database upgrades run automatically when QuizHarbor starts.
 
