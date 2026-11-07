@@ -1,5 +1,5 @@
 {
-  "name": "@localmenti/server",
+  "name": "@quizharbor/server",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@fastify/static": "latest",
-    "@localmenti/shared": "*",
+    "@quizharbor/shared": "*",
     "better-sqlite3": "latest",
     "fastify": "latest",
     "qrcode": "^1.5.4",
