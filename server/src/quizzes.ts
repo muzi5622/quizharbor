@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import type Database from 'better-sqlite3';
-import type { Question, Quiz, QuizDraft, QuizSummary } from '@localmenti/shared';
+import type { Question, Quiz, QuizDraft, QuizSummary } from '@quizharbor/shared';
 
 type QuizRow = { id: string; title: string; description: string; duration_seconds: number; created_at: number; updated_at: number };
 type QuestionRow = { type: 'quiz_mcq' | 'poll_mcq'; text: string; options_json: string; correct_option_id: string | null; duration_seconds: number; base_points: number; explanation: string };

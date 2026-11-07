@@ -3,11 +3,11 @@ import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { openDatabase } from './database.js';
-import { NicknameSchema } from '@localmenti/shared';
+import { NicknameSchema } from '@quizharbor/shared';
 
 describe('phase 5 migration', () => {
   it('normalizes legacy names without changing identities or reconnect hashes and gives unique persistent characters', () => {
-    const dir = mkdtempSync(resolve(tmpdir(), 'localmenti-upgrade-')); const filename = resolve(dir, 'upgrade.sqlite');
+    const dir = mkdtempSync(resolve(tmpdir(), 'quizharbor-upgrade-')); const filename = resolve(dir, 'upgrade.sqlite');
     try {
       const before = openDatabase(filename);
       before.prepare("INSERT INTO sessions (id, quiz_id, six_digit_pin, state, created_at, quiz_title, lan_address, port) VALUES ('session','quiz','123456','LOBBY',0,'Legacy','127.0.0.1',3000)").run();
@@ -22,7 +22,7 @@ describe('phase 5 migration', () => {
     } finally { rmSync(dir, { recursive: true, force: true }); }
   });
   it('upgrades the 10-second minimum to 5 seconds without losing saved quizzes', () => {
-    const dir = mkdtempSync(resolve(tmpdir(), 'localmenti-upgrade-')); const filename = resolve(dir, 'upgrade.sqlite');
+    const dir = mkdtempSync(resolve(tmpdir(), 'quizharbor-upgrade-')); const filename = resolve(dir, 'upgrade.sqlite');
     try {
       // Rebuild the pre-v11 shape: duration_seconds limited to 10–120.
       const before = openDatabase(filename);

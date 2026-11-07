@@ -8,7 +8,7 @@ import { openDatabase } from './database.js';
 
 describe('offline foundation', () => {
   it('migrates old quiz times to one value without touching active session snapshots', () => {
-    const dir = mkdtempSync(resolve(tmpdir(),'localmenti-timing-migration-'));
+    const dir = mkdtempSync(resolve(tmpdir(),'quizharbor-timing-migration-'));
     try {
       const filename = resolve(dir,'quiz.sqlite'); const db = openDatabase(filename);
       db.exec(`INSERT INTO quizzes (id,title,description,created_at,updated_at) VALUES ('quiz','Legacy','',0,0);
@@ -28,7 +28,7 @@ describe('offline foundation', () => {
     } finally { rmSync(dir,{ recursive:true,force:true }); }
   });
   it('persists its migration once across database reopen', () => {
-    const dir = mkdtempSync(resolve(tmpdir(), 'localmenti-db-'));
+    const dir = mkdtempSync(resolve(tmpdir(), 'quizharbor-db-'));
     try {
       const filename = resolve(dir, 'test.sqlite');
       const first = openDatabase(filename);

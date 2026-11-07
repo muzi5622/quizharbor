@@ -6,16 +6,16 @@ import type { FastifyInstance, HTTPMethods } from 'fastify';
 import { createApp } from './app.js';
 import { openDatabase } from './database.js';
 import { hashToken, setHostPassword } from './auth.js';
-import { MAX_IMPORT_BYTES, type Quiz } from '@localmenti/shared';
+import { MAX_IMPORT_BYTES, type Quiz } from '@quizharbor/shared';
 
 const password = 'local-test-password-123';
-const headers = { host: 'localmenti.test:3000', origin: 'http://localmenti.test:3000' };
+const headers = { host: 'quizharbor.test:3000', origin: 'http://quizharbor.test:3000' };
 const question = { type: 'quiz_mcq', text: 'First?', options: [{ id: 'a', text: 'One' }, { id: 'b', text: 'Two' }], correctOptionId: 'b', basePoints: 1000, explanation: 'Because.' };
 const draft = { title: 'Workshop', description: 'Offline quiz', durationSeconds: 20, questions: [question, { ...question, text: 'Second?', basePoints: 500 }] };
 const cleanups: (() => Promise<void>)[] = [];
 afterEach(async () => { for (const cleanup of cleanups.splice(0).reverse()) await cleanup(); });
 async function fixture(withPassword = true) {
-  const dir = mkdtempSync(resolve(tmpdir(), 'localmenti-host-'));
+  const dir = mkdtempSync(resolve(tmpdir(), 'quizharbor-host-'));
   const databasePath = resolve(dir, 'quiz.sqlite');
   const db = openDatabase(databasePath);
   try { if (withPassword) await setHostPassword(db, password); } finally { db.close(); }

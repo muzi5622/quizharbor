@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import type Database from 'better-sqlite3';
-import type { LiveQuestion, ScoreHistoryEntry, SessionState, SubmissionReceipt, TransitionSchema } from '@localmenti/shared';
+import type { LiveQuestion, ScoreHistoryEntry, SessionState, SubmissionReceipt, TransitionSchema } from '@quizharbor/shared';
 import type { z } from 'zod';
 import { LobbyError } from './errors.js';
 import { rankings } from './results.js';

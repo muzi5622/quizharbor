@@ -1,5 +1,5 @@
 import { createHash, randomInt, timingSafeEqual } from 'node:crypto';
-import { NicknameSchema } from '@localmenti/shared';
+import { NicknameSchema } from '@quizharbor/shared';
 import { LobbyError } from './errors.js';
 
 // "MUZl", "MUZ1" and full-width forms read as the reserved name too.

@@ -1,5 +1,5 @@
 import type Database from 'better-sqlite3';
-import { avatarFor, type RankEntry } from '@localmenti/shared';
+import { avatarFor, type RankEntry } from '@quizharbor/shared';
 
 export function rankings(db: Database.Database, sessionId: string): RankEntry[] {
   const scored = db.prepare("SELECT COUNT(*) AS count FROM session_questions WHERE session_id = ? AND type = 'quiz_mcq' AND revealed_at IS NOT NULL AND score_published_at IS NOT NULL").get(sessionId) as { count: number };

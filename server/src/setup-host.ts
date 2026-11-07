@@ -29,7 +29,7 @@ try {
   if (password !== confirmation) throw new Error('Passwords did not match. Nothing changed.');
   const directory = resolve(process.env.DATA_DIR ?? './data');
   mkdirSync(directory, { recursive: true });
-  const db = openDatabase(resolve(directory, 'localmenti.sqlite'));
+  const db = openDatabase(resolve(directory, 'quizharbor.sqlite'));
   try { await setHostPassword(db, password); } finally { db.close(); }
   console.log('Host password saved as a salted hash. Open /host/login to sign in.');
 } catch (error) { console.error(error instanceof Error ? error.message : 'Setup failed.'); process.exitCode = 1; }

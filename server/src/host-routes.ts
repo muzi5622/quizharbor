@@ -1,7 +1,7 @@
 import { randomBytes } from 'node:crypto';
 import type { FastifyInstance, FastifyReply } from 'fastify';
 import type Database from 'better-sqlite3';
-import { EmptyBodySchema, LoginSchema, MAX_IMPORT_BYTES, QuizDraftSchema, QuizFileSchema, QuizUpdateSchema } from '@localmenti/shared';
+import { EmptyBodySchema, LoginSchema, MAX_IMPORT_BYTES, QuizDraftSchema, QuizFileSchema, QuizUpdateSchema } from '@quizharbor/shared';
 import { authenticated, configured, cookieToken, hashToken, sessionCookie, SESSION_MS, setHostPassword, verifyPassword } from './auth.js';
 
 // First-run setup is only trusted from the host laptop itself, never over Wi-Fi.
@@ -98,7 +98,7 @@ export async function registerHostRoutes(app: FastifyInstance, db: Database.Data
     host.get<{ Params: { id: string } }>('/quizzes/:id/export', (request, reply) => {
       const quiz = getQuiz(db, request.params.id);
       if (!quiz) return reply.code(404).send({ error: 'Quiz not found.' });
-      return reply.header('Content-Disposition', `attachment; filename="localmenti-${quiz.id}.json"`).send({ version: 2, quiz: { title: quiz.title, description: quiz.description, durationSeconds: quiz.durationSeconds, questions: quiz.questions } });
+      return reply.header('Content-Disposition', `attachment; filename="quizharbor-${quiz.id}.json"`).send({ version: 2, quiz: { title: quiz.title, description: quiz.description, durationSeconds: quiz.durationSeconds, questions: quiz.questions } });
     });
   }, { prefix: '/api/host' });
 }

@@ -7,7 +7,7 @@ import { openDatabase } from './database.js';
 
 export type EmbeddedServer = { port: number; close: () => Promise<void> };
 
-const databasePath = (dataDir: string) => resolve(dataDir, 'localmenti.sqlite');
+const databasePath = (dataDir: string) => resolve(dataDir, 'quizharbor.sqlite');
 
 /** Starts on the first free port in `ports`, listening on every adapter so phones can join. */
 export async function startServer({ dataDir, clientPath, ports }: { dataDir: string; clientPath: string; ports: number[] }): Promise<EmbeddedServer> {

@@ -3,7 +3,7 @@ import staticFiles from '@fastify/static';
 import { Server } from 'socket.io';
 import { existsSync } from 'node:fs';
 import { openDatabase } from './database.js';
-import { EmptyBodySchema, MAX_IMPORT_BYTES, type ClientToServerEvents, type NetworkAddress, type ServerToClientEvents } from '@localmenti/shared';
+import { EmptyBodySchema, MAX_IMPORT_BYTES, type ClientToServerEvents, type NetworkAddress, type ServerToClientEvents } from '@quizharbor/shared';
 import { registerHostRoutes } from './host-routes.js';
 import { LobbyService } from './lobby.js';
 import { lanAddresses } from './network.js';

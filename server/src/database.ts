@@ -1,5 +1,5 @@
 import Database from 'better-sqlite3';
-import { nicknameWithSuffix, RESERVED_AVATAR_INDEX } from '@localmenti/shared';
+import { nicknameWithSuffix, RESERVED_AVATAR_INDEX } from '@quizharbor/shared';
 import { randomInt } from 'node:crypto';
 export function openDatabase(filename: string) {
   const db = new Database(filename);

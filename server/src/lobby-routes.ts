@@ -2,7 +2,7 @@ import type { FastifyInstance } from 'fastify';
 import { mkdirSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import QRCode from 'qrcode';
-import { EmptyBodySchema, JoinSchema, MIXED_ALPHABET_ERROR, mixesAlphabets, PinSchema, SessionCreateSchema } from '@localmenti/shared';
+import { EmptyBodySchema, JoinSchema, MIXED_ALPHABET_ERROR, mixesAlphabets, PinSchema, SessionCreateSchema } from '@quizharbor/shared';
 import { LobbyError, type LobbyService } from './lobby.js';
 import { WindowLimit } from './limits.js';
 import type Database from 'better-sqlite3';
@@ -46,7 +46,7 @@ export function registerHostLobbyRoutes(host: FastifyInstance, lobby: LobbyServi
     host.get<{ Params: { id: string } }>(`/sessions/:id/${suffix}`, (request, reply) => {
       const session = db.prepare('SELECT id FROM sessions WHERE id = ?').get(request.params.id) as { id: string } | undefined;
       if (!session) return reply.code(404).send({ error: 'Session not found.' });
-      return reply.type('text/csv; charset=utf-8').header('Content-Disposition', `attachment; filename="localmenti-${suffix === 'export' ? 'results' : 'questions'}-${session.id}.csv"`).header('X-Content-Type-Options', 'nosniff').send(build(db, session.id));
+      return reply.type('text/csv; charset=utf-8').header('Content-Disposition', `attachment; filename="quizharbor-${suffix === 'export' ? 'results' : 'questions'}-${session.id}.csv"`).header('X-Content-Type-Options', 'nosniff').send(build(db, session.id));
     });
   }
 }

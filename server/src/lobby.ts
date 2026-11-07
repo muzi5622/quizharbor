@@ -5,7 +5,7 @@ import {
   AddressSchema, AnswerSchema, AVATAR_VARIANTS, RESERVED_AVATAR_INDEX, EmptyBodySchema, KickSchema, MAX_PARTICIPANTS, nicknameWithSuffix, ParticipantAuthSchema, PresenterAuthSchema, PreviewSchema, SessionCommandSchema, TransitionSchema,
   type ActionResult, type ClientToServerEvents, type HostLobby, type NetworkAddress,
   type ParticipantLobby, type PublicLobby, type RankEntry, type ServerToClientEvents, type SessionState
-} from '@localmenti/shared';
+} from '@quizharbor/shared';
 import { authenticated, hashToken } from './auth.js';
 import { getQuiz } from './quizzes.js';
 import { WindowLimit } from './limits.js';

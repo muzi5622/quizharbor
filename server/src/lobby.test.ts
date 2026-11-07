@@ -4,7 +4,7 @@ import { resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { io, type Socket } from 'socket.io-client';
-import { AVATAR_VARIANTS, RESERVED_AVATAR_INDEX, type ClientToServerEvents, type HostLobby, type ParticipantLobby, type PublicLobby, type ServerToClientEvents } from '@localmenti/shared';
+import { AVATAR_VARIANTS, RESERVED_AVATAR_INDEX, type ClientToServerEvents, type HostLobby, type ParticipantLobby, type PublicLobby, type ServerToClientEvents } from '@quizharbor/shared';
 import { createApp } from './app.js';
 import { openDatabase } from './database.js';
 import { hashToken, setHostPassword } from './auth.js';
@@ -15,7 +15,7 @@ const question = { type: 'quiz_mcq', text: 'Private question?', options: [{ id: 
 afterEach(async () => { for (const cleanup of cleanups.splice(0).reverse()) await cleanup(); vi.unstubAllEnvs(); });
 
 async function fixture() {
-  const directory = mkdtempSync(resolve(tmpdir(), 'localmenti-lobby-'));
+  const directory = mkdtempSync(resolve(tmpdir(), 'quizharbor-lobby-'));
   const databasePath = resolve(directory, 'event.sqlite');
   const db = openDatabase(databasePath);
   await setHostPassword(db, 'local-lobby-password'); db.close();
@@ -192,7 +192,7 @@ describe('live lobby', () => {
   it('denies missing/forged/cross-origin host access and rechecks authorization on every command', async () => {
     const f = await fixture(); const lobby = await f.open();
     await expect(connect(f.client('/host'))).rejects.toThrow('Host sign-in required');
-    await expect(connect(f.client('/host', {}, { Cookie: 'localmenti_host=invalid' }))).rejects.toThrow('Host sign-in required');
+    await expect(connect(f.client('/host', {}, { Cookie: 'quizharbor_host=invalid' }))).rejects.toThrow('Host sign-in required');
     await expect(connect(f.client('/host', {}, { Cookie: f.cookie, Origin: 'http://evil.test' }))).rejects.toThrow();
     const joined = (await f.join(lobby.pin)).json();
     const participant = f.client('/participant', { pin: lobby.pin, token: joined.token }); await participantReady(participant);

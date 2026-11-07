@@ -8,7 +8,7 @@ const port = Number(process.env.PORT ?? 3000);
 if (!Number.isInteger(port) || port < 1 || port > 65535) throw new Error('PORT must be an integer from 1 to 65535');
 const dataDir = resolve(process.env.DATA_DIR ?? './data');
 mkdirSync(dataDir, { recursive: true });
-const { app } = await createApp({ databasePath: resolve(dataDir, 'localmenti.sqlite'), clientPath: fileURLToPath(new URL('../../client/dist/', import.meta.url)), logger: true });
+const { app } = await createApp({ databasePath: resolve(dataDir, 'quizharbor.sqlite'), clientPath: fileURLToPath(new URL('../../client/dist/', import.meta.url)), logger: true });
 await app.listen({ host: '0.0.0.0', port });
 console.log(`QuizHarbor: http://localhost:${port}`);
 for (const addresses of Object.values(networkInterfaces())) for (const address of addresses ?? []) {

@@ -4,7 +4,7 @@ import type Database from 'better-sqlite3';
 
 const derive = promisify(scrypt);
 export const SESSION_MS = 12 * 60 * 60 * 1000;
-export const COOKIE_NAME = 'localmenti_host';
+export const COOKIE_NAME = 'quizharbor_host';
 export const hashToken = (token: string) => createHash('sha256').update(token).digest('hex');
 
 export async function setHostPassword(db: Database.Database, password: string) {

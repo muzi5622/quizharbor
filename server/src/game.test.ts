@@ -3,8 +3,8 @@ import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
 import { io, type Socket } from 'socket.io-client';
-import type { ClientToServerEvents, HostLobby, ParticipantLobby, PublicLobby, ServerToClientEvents, TransitionSchema } from '@localmenti/shared';
-import { MAX_PARTICIPANTS, RESERVED_AVATAR_INDEX } from '@localmenti/shared';
+import type { ClientToServerEvents, HostLobby, ParticipantLobby, PublicLobby, ServerToClientEvents, TransitionSchema } from '@quizharbor/shared';
+import { MAX_PARTICIPANTS, RESERVED_AVATAR_INDEX } from '@quizharbor/shared';
 import type { z } from 'zod';
 import { createApp } from './app.js';
 import { openDatabase } from './database.js';
@@ -16,7 +16,7 @@ afterEach(async () => { for (const cleanup of cleanups.splice(0).reverse()) awai
 const question = { type: 'quiz_mcq', text: 'First question?', options: [{ id: 'a', text: 'First choice' }, { id: 'b', text: 'Second choice' }], correctOptionId: 'a', basePoints: 1000, explanation: 'Do not send this before reveal.' };
 async function fixture(questions: unknown[] = [question, { ...question, text: 'Second question?', correctOptionId: 'b' }], durationSeconds = 20) {
   let now = 1_700_000_000_000;
-  const directory = mkdtempSync(resolve(tmpdir(), 'localmenti-game-')); const databasePath = resolve(directory, 'game.sqlite');
+  const directory = mkdtempSync(resolve(tmpdir(), 'quizharbor-game-')); const databasePath = resolve(directory, 'game.sqlite');
   const db = openDatabase(databasePath); await setHostPassword(db, 'test-game-password'); db.close();
   const make = () => createApp({ databasePath, clientPath: resolve('client/dist'), lanAddresses: () => [{ address: '127.0.0.1', label: 'Test' }], clock: () => now });
   let app = (await make()).app; let origin = '';

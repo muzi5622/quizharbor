@@ -1,5 +1,5 @@
 import { networkInterfaces } from 'node:os';
-import type { NetworkAddress } from '@localmenti/shared';
+import type { NetworkAddress } from '@quizharbor/shared';
 
 export function lanAddresses(): NetworkAddress[] {
   return Object.entries(networkInterfaces()).flatMap(([label, addresses]) => (addresses ?? [])
